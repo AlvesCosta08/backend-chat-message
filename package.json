@@ -1,0 +1,21 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "test": "NODE_ENV=test jest --forceExit",
+    "test:watch": "NODE_ENV=test jest --watch --forceExit",
+    "test:coverage": "NODE_ENV=test jest --coverage --forceExit"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "ws": "^8.11.0",
+    "qrcode": "^1.5.3",
+    "libsodium-wrappers": "^0.7.11"
+  },
+  "devDependencies": {
+    "jest": "^29.5.0",
+    "supertest": "^6.3.3"
+  }
+}
