@@ -1,14 +1,15 @@
-// src/qr-manager.js
 const QRCode = require('qrcode');
 const crypto = require('crypto');
 
+const BASE_URL = process.env.BASE_URL || 'http://localhost:3000'; // Altere aqui
 const activeQRCodes = new Map();
-const qrTimeouts = new Map(); // Armazena referências dos timeouts
+const qrTimeouts = new Map();
 
 function generateQR() {
   const sessionId = crypto.randomUUID();
   const timestamp = Date.now();
-  const qrContent = JSON.stringify({ sessionId, timestamp });
+  // Gera URL completa com IP ou localhost
+  const qrContent = `${BASE_URL}/chat/${sessionId}`;
 
   activeQRCodes.set(sessionId, { timestamp, used: false });
 
@@ -21,7 +22,7 @@ function generateQR() {
 
   qrTimeouts.set(sessionId, timeoutId);
 
-  return qrContent;
+  return qrContent; // Retorna a URL completa
 }
 
 function validateQR(sessionId) {
@@ -43,7 +44,6 @@ function validateQR(sessionId) {
   return true;
 }
 
-// Função para limpar timeouts (útil para testes)
 function clearAllTimeouts() {
   for (let [id, timeoutId] of qrTimeouts) {
     clearTimeout(timeoutId);
